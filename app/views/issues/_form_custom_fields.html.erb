@@ -23,7 +23,7 @@
   <script type="text/javascript">
     $("#issue_custom_field_values_"+"<%=Setting.plugin_redmine_emergya_adjustments['risk_impact_custom_field']%>").addClass('launcher attr1');
     $("#issue_custom_field_values_"+"<%=Setting.plugin_redmine_emergya_adjustments['risk_probability_custom_field']%>").addClass('launcher attr2');
-    $("#issue_custom_field_values_"+"<%=Setting.plugin_redmine_emergya_adjustments['risk_exposition_level_custom_field']%>").addClass('autofilled_field');
+    $("#issue_custom_field_values_"+"<%=Setting.plugin_redmine_emergya_adjustments['risk_exposition_level_custom_field']%>").addClass('autofilled_field select_input');
 
     url = "/projects/"+"<%=params[:project_id]%>"+"/issues/get_exposition_level";
   </script>

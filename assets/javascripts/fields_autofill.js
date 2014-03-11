@@ -1,25 +1,23 @@
 $(document).ready(function(){
-//	alert("hola");
 /*
-	$('#issue_tracker_id').change(function(){
-		switch ($('#issue_tracker_id').val()){
-			case "21":
-				$('#issue_custom_field_values'+exposicion_id).addClass('select_disabled');
-				params = {impacto: $('#issue_custom_field_values'+impacto_id).val(), probabilidad: $('#issue_custom_field_values'+probabilidad_id).val()};
-				url = "/projects/"+project_name+"/issues/get_exposition_level";
-				$('#issue_custom_field_values'+impacto_id).addClass('launcher');
-				$('#issue_custom_field_values'+probabilidad_id).addClass('launcher');
-			break;
-		}
-	});
-*/
-
 	$('.autofilled_field').live('focus', function(){
 		$(this).blur();
 	});
+*/
+	
 
 	$('.launcher').live('change', function(){
 		params = {attr1: $('.attr1').val(), attr2: $('.attr2').val()}
+		if ($('.autofilled_field').hasClass('select_input')){
+			default_options=new Array();
+			$('.autofilled_field option').each(function(){
+				option = new Array();
+				option.push(this.innerHTML);
+				option.push(this.value);
+				default_options.push(option);
+			});
+			params.options = JSON.stringify(default_options);
+		}
 		$.ajax({
 			url: url,
 			data: params,
@@ -31,7 +29,6 @@ $(document).ready(function(){
 				}
 			}
 		});
-		//$('.autofilled_field').load(url, params);
 	});
 
 });

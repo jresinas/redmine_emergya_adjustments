@@ -16,23 +16,17 @@ module IssuesControllerPatch
     # Wraps the association to get the Deliverable subject.  Needed for the 
     # Query and filtering
     def get_exposition_level
-#      impacto = params[:impacto]
-#      probabilidad = params[:probabilidad]
       impacto = params[:attr1]
       probabilidad = params[:attr2]
-      @exposicion = ""
-
-      if impacto.present? && probabilidad.present?
-        @exposicion = ExpositionLevel.getExpositionLevelValue(impacto,probabilidad)
-        render :text => "<option value='"+@exposicion+"'>"+@exposicion+"</option>".html_safe
-      else 
-        render :nothing => true
-      end
+      @opciones = ActiveSupport::JSON.decode(params[:options].gsub('\"', '"'))
+      @exposicion = ExpositionLevel.getExpositionLevelValue(impacto,probabilidad)
+      
+      render :layout => false, :inline => "<%= options_for_select(@opciones, @exposicion) %>"
     end
 
     def get_bill_amount
-      facturado = params[:attr1].to_i
-      iva = params[:attr2].to_i
+      facturado = params[:attr1].to_f
+      iva = params[:attr2].to_f
 
       if facturado.present? && iva.present?
         @cobrado = facturado * (1.0+(iva/100.0))
